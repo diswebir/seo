@@ -12,6 +12,8 @@
     display: inline-block; /* برای قرارگیری صحیح تولتیپ */
     cursor: pointer;      /* تغییر نشانگر موس برای راهنمایی کاربر */
 }
+```css
+```css
 
 /* استایل اصلی تولتیپ */
 .custom-tooltip::after {
