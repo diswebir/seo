@@ -29,16 +29,15 @@ border: 1px solid rgba(255, 254, 254, 1);
     z-index: 999;
 }
 
-/* حالت پیش‌فرض: نمایش در بالا */
-.ht[data-tooltip-position="top"]::after,
-.ht:not([data-tooltip-position])::after {
+/* نمایش در بالا */
+.ht[data-tooltip-position="top"]::after{
     bottom: 120%;
     left: 50%;
     transform: translateX(-50%);
 }
 
-/* نمایش در پایین */
-.ht[data-tooltip-position="bottom"]::after {
+/*  حالت پیش‌فرض: نمایش در پایین */
+.ht[data-tooltip-position="bottom"]::after, .ht:not([data-tooltip-position])::after {
     top: 120%;
     left: 50%;
     transform: translateX(-50%);
@@ -95,4 +94,13 @@ data-tooltip|متن تولتیپ
 
 ```html
 data-tooltip-position|bottom
+```
+```html
+data-tooltip-position|left
+```
+```html
+data-tooltip-position|right
+```
+```html
+data-tooltip-position|top
 ```
