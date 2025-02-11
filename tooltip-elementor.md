@@ -7,24 +7,92 @@
 برای شروع، کد CSS زیر را به بخش "CSS سفارشی" در تنظیمات قالب یا المنتور خود اضافه کنید. این کد استایل اصلی تولتیپ را تعریف می‌کند.
 
 ```css
-.custom-tooltip {
-    position: relative;
-    display: inline-block; /* برای قرارگیری صحیح تولتیپ */
-    cursor: pointer;      /* تغییر نشانگر موس برای راهنمایی کاربر */
+
+/* استایل اصلی تولتیپ */
+.ht::after {
+    background: rgba(255, 254, 254, 0.8);
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(9.1px);
+-webkit-backdrop-filter: blur(9.1px);
+border: 1px solid rgba(255, 254, 254, 1);
+    content: attr(data-tooltip); /* دریافت متن از اتریبیوت */
+    position: absolute;
+    color: #1A374D;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-family: 'matn';
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 999;
+}
+
+/* حالت پیش‌فرض: نمایش در بالا */
+.ht[data-tooltip-position="top"]::after,
+.ht:not([data-tooltip-position])::after {
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* نمایش در پایین */
+.ht[data-tooltip-position="bottom"]::after {
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* نمایش در چپ */
+.ht[data-tooltip-position="left"]::after {
+    right: 120%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* نمایش در راست */
+.ht[data-tooltip-position="right"]::after {
+    left: 120%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* نمایش تولتیپ هنگام هاور */
+.ht:hover::after {
+    visibility: visible;
+    opacity: 1;
 }
 ```
-/* استایل اصلی تولتیپ */
-.custom-tooltip::after {
-    content: attr(data-tooltip); /* محتوای تولتیپ از attribute 'data-tooltip' گرفته می‌شود */
-    position: absolute;
-    background: rgba(0, 0, 0, 0.85); /* رنگ پس‌زمینه تولتیپ */
-    color: #fff;                     /* رنگ متن تولتیپ */
-    padding: 8px 12px;               /* فاصله‌ی داخلی تولتیپ */
-    border-radius: 5px;              /* گردی گوشه‌های تولتیپ */
-    font-size: 14px;                 /* اندازه‌ی فونت تولتیپ */
-    white-space: nowrap;             /* جلوگیری از شکستن متن تولتیپ به خطوط جدید */
-    visibility: hidden;              /* مخفی بودن تولتیپ در حالت عادی */
-    opacity: 0;                     /* شفافیت صفر برای انیمیشن نمایش */
-    transition: opacity 0.3s, visibility 0.3s; /* انیمیشن برای نمایش و پنهان شدن تولتیپ */
-    z-index: 999;                    /* اطمینان از نمایش تولتیپ روی سایر عناصر */
+```css
+/* برای موبایل: نمایش تولتیپ فقط در پایین */
+@media (max-width: 768px) {
+    .ht::after {
+        top: 120% !important;
+        left: 50%;
+        transform: translateX(-50%) !important;
+    }
 }
+```
+
+## 2. افزودن کلاس css به المان مورد نظر 
+باید کلاس .ht رو به المان مورد نظر خودمون بدیم 
+
+```css
+.ht
+```
+
+## 3. افزودن اتریبیوت مورد نظر به المان مورد نظر 
+
+### اتریبیوت اول :  data-tooltip
+```html
+data-tooltip|متن تولتیپ
+```
+
+###  اتریبیوت دوم : data-tooltip-position 
+محل قرار گیری تولتیپ مورد نظر
+
+
+```html
+data-tooltip-position|bottom
+```
